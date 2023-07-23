@@ -2,8 +2,14 @@ FROM node:20.2.0
 
 RUN npm install -g npm@9.8.0
 
+WORKDIR /app/
+
 COPY ./package*.json ./
 RUN npm ci --production
 
-COPY ./src/ ./
+COPY ./src/ ./src/
+COPY ./astro.config.mjs ./
+COPY ./tsconfig.json ./
 RUN npm run build
+
+CMD node ./dist/server/entry.mjs
