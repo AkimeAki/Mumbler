@@ -9,7 +9,7 @@ COPY ./tsconfig.json ./
 
 RUN npm install -g npm@9.8.1 && \
 	npm cache clean --force && \
-	npm ci --omit=dev && \
+	npm ci && \
 	npm run build
 
 EXPOSE 4001
