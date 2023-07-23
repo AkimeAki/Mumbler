@@ -4,10 +4,10 @@ steps:
       [
         "build",
         "-t",
-        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/mumbler:${COMMIT_SHA}",
+        "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/production:${COMMIT_SHA}",
         "-f",
         "Dockerfile.build",
         "."
       ]
 images:
-  - "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/mumbler:${COMMIT_SHA}"
+  - "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/production:${COMMIT_SHA}"
