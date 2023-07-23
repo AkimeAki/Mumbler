@@ -1,15 +1,17 @@
 FROM node:20.2.0
 
-RUN npm install -g npm@9.8.1
-
 WORKDIR /app/
 
 COPY ./package*.json ./
-RUN npm ci --omit=dev
-
 COPY ./src/ ./src/
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
-RUN npm run build
+
+RUN npm install -g npm@9.8.1 && \
+	npm cache clean --force && \
+	npm ci --omit=dev && \
+	npm run build
+
+EXPOSE 4001
 
 CMD node ./dist/server/entry.mjs
