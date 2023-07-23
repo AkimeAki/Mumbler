@@ -12,4 +12,6 @@ COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 RUN npm run build
 
+EXPOSE 4001
+
 CMD node ./dist/server/entry.mjs
