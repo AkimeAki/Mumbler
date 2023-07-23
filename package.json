@@ -1,5 +1,5 @@
 {
-	"name": "allergy-nav",
+	"name": "mumbler",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -15,7 +15,6 @@
 		"@astrojs/react": "^2.2.1",
 		"@types/react": "^18.2.14",
 		"@types/react-dom": "^18.2.6",
-		"aki-modules": "github:AkimeAki/Modules#1.0.0",
 		"astro": "^2.7.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
