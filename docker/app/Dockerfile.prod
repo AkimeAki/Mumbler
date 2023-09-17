@@ -7,8 +7,8 @@ COPY ./src/ ./src/
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 
-ARG API_TARGET_AUDIENCE
-ENV API_TARGET_AUDIENCE=${API_TARGET_AUDIENCE}
+ARG API_URL
+ENV API_URL=${API_URL}
 
 RUN npm install -g npm@9.6.7 && \
 	npm ci --production && \

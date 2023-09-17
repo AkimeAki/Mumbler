@@ -2,22 +2,36 @@
 import Layout from "@/layouts/Layout.astro";
 import { GoogleAuth } from "google-auth-library";
 
-const url = `${import.meta.env.API_TARGET_AUDIENCE}/test`;
-const targetAudience = import.meta.env.API_TARGET_AUDIENCE;
+const url = `${import.meta.env.API_URL}/test`;
 
+const apiServiceUrl = import.meta.env.API_URL;
 const auth = new GoogleAuth();
+
+const options: RequestInit = {
+	method: "GET",
+	headers: {
+		"Content-Type": "application/json"
+	}
+};
 
 let data = { message: "" };
 let message = "";
 
 const request = async () => {
-	const client = await auth.getIdTokenClient(targetAudience);
-	const res = await client.request<{ message: string }>({ url });
-	data = res.data;
+	const client = await auth.getIdTokenClient(apiServiceUrl);
+	const headers = await client.getRequestHeaders();
+	if (headers["Authorization"] !== undefined && options.headers !== undefined) {
+		options.headers["Authorization" as keyof HeadersInit] = headers["Authorization"];
+	}
 };
 
 try {
-	await request();
+	if (import.meta.env.PROD) {
+		await request();
+	}
+
+	const res = await fetch(url, options);
+	data = await res.json();
 } catch (e) {
 	if (e instanceof Error) {
 		message = e.message;
