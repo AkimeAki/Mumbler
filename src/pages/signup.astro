@@ -7,13 +7,13 @@ const targetAudience = import.meta.env.API_TARGET_AUDIENCE;
 
 const auth = new GoogleAuth();
 
-let data = "";
+let data = { message: "" };
 let message = "";
 
 const request = async () => {
 	const client = await auth.getIdTokenClient(targetAudience);
-	const res = await client.request({ url });
-	data = String(res.data);
+	const res = await client.request<{ message: string }>({ url });
+	data = res.data;
 };
 
 try {
