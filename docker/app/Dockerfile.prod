@@ -7,6 +7,9 @@ COPY ./src/ ./src/
 COPY ./astro.config.mjs ./
 COPY ./tsconfig.json ./
 
+ARG API_URL
+ENV API_URL=${API_URL}
+
 RUN npm install -g npm@9.6.7 && \
 	npm ci --production && \
 	npm run build

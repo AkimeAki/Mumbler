@@ -1,7 +1,17 @@
 steps:
   # ビルド
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "${_IMAGE_NAME}:${COMMIT_SHA}", "-f", "docker/app/Dockerfile.prod", "."]
+    args:
+      [
+        "build",
+        "--build-arg",
+        "API_URL=${_API_URL}"
+        "-t",
+        "${_IMAGE_NAME}:${COMMIT_SHA}",
+        "-f",
+        "docker/app/Dockerfile.prod",
+        "."
+      ]
   # push
   # いつもは勝手にpushしてくれるのに、なぜかデプロイも自動でするとしてくれない
   - name: "gcr.io/cloud-builders/docker"
@@ -18,9 +28,7 @@ steps:
         "${_IMAGE_NAME}:${COMMIT_SHA}",
         "--region",
         "${_REGION}",
-        "--allow-unauthenticated",
-        "--update-env-vars",
-        "API_URL=${_API_URL}"
+        "--allow-unauthenticated"
       ]
 substitutions:
   _IMAGE_NAME: "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/production"
