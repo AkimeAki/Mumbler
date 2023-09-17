@@ -5,7 +5,7 @@ steps:
       [
         "build",
         "--build-arg",
-        "API_URL=${_API_URL}",
+        "API_TARGET_AUDIENCE=${_API_TARGET_AUDIENCE}",
         "-t",
         "${_IMAGE_NAME}:${COMMIT_SHA}",
         "-f",

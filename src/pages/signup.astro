@@ -1,9 +1,30 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { GoogleAuth } from "google-auth-library";
 
-const url = `${import.meta.env.API_URL}/test`;
-const res = await fetch(url);
-const data = await res.json();
+const url = `${import.meta.env.API_TARGET_AUDIENCE}test`;
+const targetAudience = import.meta.env.API_TARGET_AUDIENCE;
+
+const auth = new GoogleAuth();
+
+let data = "";
+let message = "";
+
+const request = async () => {
+	const client = await auth.getIdTokenClient(targetAudience);
+	const res = await client.request({ url });
+	data = String(res.data);
+};
+
+try {
+	await request();
+} catch (e) {
+	if (e instanceof Error) {
+		message = e.message;
+	} else {
+		message = "ERROR";
+	}
+}
 ---
 
 <Layout>
@@ -30,7 +51,8 @@ const data = await res.json();
 	</form>
 </Layout>
 
-<script define:vars={{ url, data }}>
+<script define:vars={{ url, data, message }}>
 	console.log(url);
 	console.log(data);
+	console.log(message);
 </script>
