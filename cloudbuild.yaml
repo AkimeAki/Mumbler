@@ -18,7 +18,9 @@ steps:
         "${_IMAGE_NAME}:${COMMIT_SHA}",
         "--region",
         "${_REGION}",
-        "--allow-unauthenticated"
+        "--allow-unauthenticated",
+        "--update-env-vars",
+        "API_URL=${_API_URL}"
       ]
 substitutions:
   _IMAGE_NAME: "asia-northeast1-docker.pkg.dev/${PROJECT_ID}/mumbler/production"
